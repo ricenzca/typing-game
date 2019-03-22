@@ -1,0 +1,43 @@
+* {
+	margin: 0 auto;
+	padding: 0;
+}
+
+body {
+	background: black;
+}
+
+h1 {
+	text-align: center;
+	padding: 20px;
+}
+.container {
+	width: 800px;
+	background: #F7E5DE;
+	text-align: center;
+	max-height: 600px;
+}
+
+.gameframe {
+	background: url(images/background/messy-room.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 100%;
+	display: flex;
+	flex-flow: wrap;
+}
+
+#pinky {
+	height: 300px;
+	position: relative;
+	bottom: 450px;
+	right: 70px;
+}
+
+#brain {
+	height: 400px;
+	position: relative;
+	bottom: 380px;
+	left: 90px;
+}

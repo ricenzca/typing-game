@@ -1,0 +1,19 @@
+<animation>words move out of brain's mouth, moves from right to left, towards pinky
+
+if user types the word and hits enter by before the word reaches pinky, the words will reach pinky and pinky will comprehend it(nod or smth)
+
+<animation>when user does not type the word and hit enter by the time the word reaches pinky, the words bounces off pinky
+
+starting with single words, and speed of words generation will become faster
+
+time for user to type 5 seconds
+
+
+create array of words, sort from length short to long
+
+array shift first word into another array which will appear on screen and move towards pinky within 5sec
+
+if user types the words within 5s and hit enter, the word will be shifted out of the array into a completed array (show count/score on screen)
+	otherwise word will be shifted after 5s into an uncompleted array, if count reaches a certain number(5/10) game ends and will show your typing speed(per min)
+
+(increase difficulty) after every 5 words, either shift to a more lengthy array of words
