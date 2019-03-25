@@ -9,11 +9,10 @@ wordLibrary.sort(function(a, b){
 // console.log (wordLibrary);
 
 //Groups the words according to the number of letters into corresponsing arrays
-let lessThanThree = wordLibrary.splice(0,189);
-let fourToSeven = wordLibrary.splice(0,1356);
-let eightToEleven = wordLibrary.splice(0,687);
-let ElevenAndAbove = wordLibrary;
-// console.log(ElevenAndAbove)
+let fourToFive = wordLibrary.filter(value => value.length>3 && value.length<6);
+let sixToSeven = wordLibrary.filter(value => value.length>5 && value.length<8);
+let eightToTen = wordLibrary.filter(value => value.length>7 && value.length<11);
+let ElevenAndAbove = wordLibrary.filter(value => value.length>11)
 
 //Generates random word
 let randomWord = "";
@@ -26,14 +25,18 @@ function generateRandomWord(array) {
     console.log(typeof randomWord);
 }
 
+//Increase word length to increase game difficulty
 function increaseWordLength() {
     if (correctArray.length < 3) {
-        generateRandomWord(fourToSeven);
+        generateRandomWord(fourToFive);
     }
-    else if (correctArray.length < 8) {
-        generateRandomWord(eightToEleven);
+    else if (correctArray.length < 6) {
+        generateRandomWord(sixToSeven);
     }
-    else if (correctArray.length < 13) {
+    else if (correctArray.length < 9) {
+        generateRandomWord(eightToTen);
+    }
+    else if (correctArray.length >=9) {
         generateRandomWord(ElevenAndAbove);
     }
 }
@@ -75,7 +78,7 @@ function displayWord () {
     word.classList = "word";
     word.innerHTML = wordArray[0];
     // console.log("word div: "word);
-    const wordOnDisplay = document.querySelector(".word-on-display");
+    wordOnDisplay = document.querySelector(".word-on-display");
     wordOnDisplay.appendChild(word);
     wordOnDisplay.classList.add("animate");
     tickerController();
@@ -83,25 +86,35 @@ function displayWord () {
 
 //Checks when timer expires and check when game is over
 let wrongArray = [];
-let i = 0;
+let i=0;
+let l=0;
 function gameCheck () {
+    if (i===0 && l!==0) {
+        clearWord();
+    }
     if (wrongArray.length!==4) {
         if (i!==0) {
             clearWord();
             wrongArray.push(wordArray.shift());
+            updateScore();
             console.log("wrong array: "+wrongArray);
             console.log("word array 2: "+wordArray);
         }
         i++;
+        l++;
         increaseWordLength();
         displayWord();
     }
     else if (wrongArray.length===4) {
         clearWord();
+        wrongArray.push(wordArray.shift());
+        updateScore();
         clearInterval(wordInterval);
         input.remove();
         counter.remove();
         clearInterval(countdownInterval);
+        brainLiner.innerHTML = "-GAME OVER-<br>Refresh to play again"
+        brainLiner.style.visibility = "visible";
         return;
         }
 }
@@ -115,7 +128,7 @@ function checkEntry() {
     entry = input.value;
     if (entry === wordArray[0]) {
         i=0;
-        clearWord();
+        input.value = "";
         correctArray.push(entry);
         wordArray.shift();
         updateScore();
