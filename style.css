@@ -13,9 +13,11 @@ h1 {
 }
 .container {
 	width: 800px;
+	height: 600px;
+	max-width: 800px;
+	max-height: 600px;
 	background: #F7E5DE;
 	text-align: center;
-	max-height: 600px;
 }
 
 .gameframe {
@@ -23,21 +25,145 @@ h1 {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	height: 100%;
-	display: flex;
-	flex-flow: wrap;
+	height: 600px;
+}
+
+.score {
+	color: black;
+	font-size: 25px;
+	position: relative;
+	left: 30px;
+	top: 25px;
+	float: left;
+	text-align: left;
+	line-height: 35px;
+	background: rgba(255,255,255, .8);
+	border-radius: 10px;
+}
+
+.instructions {
+	color: black;
+	font-size: 30px;
+	line-height: 40px;
+	position: relative;
+	top: 80px;
+	max-width: 600px;
+	background: rgba(255,255,255, .8);
+	padding: 10px;
+	border-radius: 20px;
+	visibility: hidden;
+}
+
+.pinkyLiner {
+	color: black;
+	font-size: 30px;
+	line-height: 40px;
+	position: relative;
+	top: 85px;
+	max-width: 370px;
+	background: rgba(255,255,255, .8);
+	padding: 10px;
+	border-radius: 20px;
+	float: left;
+}
+
+.brainLiner {
+	color: black;
+	font-size: 30px;
+	line-height: 40px;
+	position: relative;
+	top: 145px;
+	max-width: 380px;
+	background: rgba(255,255,255, .8);
+	padding: 10px;
+	border-radius: 20px;
+	float: right;
+	visibility: hidden;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.inputSection {
+	position: relative;
+	bottom: 100px;
+	left: 240px;
+	float: right;
+}
+
+#input {
+	font-size: 25px;
+	text-align: center;
+	color: black;
+	font-style: italic;
+	border-radius: 5px;
+	background: rgba(255,255,255, 1);
+	border-radius: 10px;
+	visibility: hidden;
+	height: 40px;
+}
+
+#submit {
+	font-size: 20px;
+	padding: 0 10px;
+	background: rgba(255,255,255, .8);
+	border: none;
+	border-radius: 5px;
+	visibility: hidden;
+}
+
+.counter {
+	color: black;
+	font-size: 25px;
+	position: relative;
+	left: 250px;
+	bottom: 140px;
+	background: rgba(255,255,255, .8);
+	border-radius: 5px;
+	width: 130px;
 }
 
 #pinky {
 	height: 300px;
 	position: relative;
-	bottom: 450px;
-	right: 70px;
+	bottom: 320px;
+	left: 10px;
+	float: left;
 }
 
 #brain {
 	height: 400px;
 	position: relative;
-	bottom: 380px;
-	left: 90px;
+	bottom: 350px;
+	left: 0;
+	float: right;
 }
+
+@-webkit-keyframes wordmove {
+	50% {
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translate(-380px, -75px) scale(2);
+		opacity: 0.5;
+	}
+}
+
+.word-on-display {
+	color: white;
+	opacity: 0.5;
+	position: relative;
+	bottom: 250px;
+	left: 40%;
+	font-size: 25px;
+}
+
+.animate {
+	-webkit-animation: wordmove 4s cubic-bezier(0.07,-0.31, 0.58, 1) infinite;
+}
+
+/*.trigger:hover {
+	transform: translate(-330px, -75px) scale(2);
+	/*-webkit-transform: translate(-410px,-75px) scale(2);*/
+}*/

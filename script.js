@@ -1,30 +1,176 @@
 window.onload = function () {
-
 }
 
-wordLibrary = [];
+//Sort the words from short to long
+let wordLibrary = data;
+wordLibrary.sort(function(a, b){
+  return a.length - b.length;
+});
+// console.log (wordLibrary);
 
-const numBox = 800*600/400;
-console.log(numBox);
+//Groups the words according to the number of letters into corresponsing arrays
+let lessThanThree = wordLibrary.splice(0,189);
+let fourToSeven = wordLibrary.splice(0,1356);
+let eightToEleven = wordLibrary.splice(0,687);
+let ElevenAndAbove = wordLibrary;
+// console.log(ElevenAndAbove)
 
-// let gameframe = document.querySelector(".gameframe");
-// for (i=0; i<numBox; i++) {
-//     var grid = document.createElement("div");
-//     grid.className = "box";
-//     grid.id = i;
-//     grid.style.backgroundColor = "none";
-//     grid.style.border = "solid salmon 1px";
-//     grid.style.width = "18px";
-//     grid.style.height = "18px";
-//     grid.style.display = "flex";
-//     grid.style.alignItems = "center";
-//     grid.style.justifyContent = "center";
-//     grid.innerHTML = i;
-//     grid.style.color = "white";
-//     grid.style.fontSize = "8px";
-//     gameframe.appendChild(grid);
-// }
+//Generates random word
+let randomWord = "";
+function generateRandomWord(array) {
+    lengthArray = array.length;
+    var randomNumber = Math.floor(Math.random()*lengthArray);
+    randomWord = array[randomNumber];
+    array.splice(randomNumber,1);
+    console.log(randomWord);
+    console.log(typeof randomWord);
+}
 
+function increaseWordLength() {
+    if (correctArray.length < 3) {
+        generateRandomWord(fourToSeven);
+    }
+    else if (correctArray.length < 8) {
+        generateRandomWord(eightToEleven);
+    }
+    else if (correctArray.length < 13) {
+        generateRandomWord(ElevenAndAbove);
+    }
+}
+
+let duration = 4;
+let ticker = 0;
+let k=0;
+const counter = document.querySelector(".counter");
+function tickerController () {
+    if (ticker===0) {
+        ticker = duration;
+        counter.innerHTML = "Time left: "+ticker;
+        // console.log("ticker1: "+ticker);
+        if (k===0) {
+            countdownInterval = setInterval(countdown, 1000);
+            k++;
+        }
+    }
+    function countdown () {
+        ticker--;
+        counter.innerHTML = "Time left: "+ticker;
+        // console.log("ticker2: "+ticker);
+    }
+}
+
+//removes the words from display and input box
+let word = {};
+function clearWord () {
+        word.remove();
+        input.value = "";
+    }
+
+//Populates random word when game starts
+let wordArray = [];
+function displayWord () {
+    wordArray.push(randomWord);
+    console.log("word array 1: "+wordArray);
+    word = document.createElement("div");
+    word.classList = "word";
+    word.innerHTML = wordArray[0];
+    // console.log("word div: "word);
+    const wordOnDisplay = document.querySelector(".word-on-display");
+    wordOnDisplay.appendChild(word);
+    wordOnDisplay.classList.add("animate");
+    tickerController();
+}
+
+//Checks when timer expires and check when game is over
+let wrongArray = [];
+let i = 0;
+function gameCheck () {
+    if (wrongArray.length!==4) {
+        if (i!==0) {
+            clearWord();
+            wrongArray.push(wordArray.shift());
+            console.log("wrong array: "+wrongArray);
+            console.log("word array 2: "+wordArray);
+        }
+        i++;
+        increaseWordLength();
+        displayWord();
+    }
+    else if (wrongArray.length===4) {
+        clearWord();
+        clearInterval(wordInterval);
+        input.remove();
+        counter.remove();
+        clearInterval(countdownInterval);
+        return;
+        }
+}
+
+
+//Checks whether user input is correct
+let correctArray = [];
+let entry = "";
+const input = document.querySelector("#input");
+function checkEntry() {
+    entry = input.value;
+    if (entry === wordArray[0]) {
+        i=0;
+        clearWord();
+        correctArray.push(entry);
+        wordArray.shift();
+        updateScore();
+    }
+    console.log("correct array: "+correctArray);
+}
+document.querySelector('#submit').addEventListener('click', checkEntry);
+
+
+//Clears placeholder of input when in focus
+input.addEventListener("focus", function () {input.placeholder = "";});
+input.addEventListener("blur", function () {input.placeholder = "Type here and hit enter!";});
+
+
+//Allows player to hit enter to submit in text box
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("submit").click();
+    }
+});
+
+
+//Displays the current score
+function updateScore () {
+    score = document.querySelector(".score")
+    score.style.padding = "10px";
+    score.innerHTML= "Your score: "+correctArray.length+"<br>Words missed: "+wrongArray.length+"/5";
+}
+
+
+//Displays and hides introduction liners, and initiate the game after the intro
+const instructions = document.querySelector(".instructions");
+const pinkyLiner = document.querySelector(".pinkyLiner")
+const brainLiner = document.querySelector(".brainLiner")
+introArray = [pinkyLiner, brainLiner,instructions];
+let j=0;
+introInterval = setInterval(intro, 1000);
+function intro () {
+    if (j!==2) {
+        introArray[j].style.visibility = "hidden";
+        introArray[j+1].style.visibility = "visible";
+        j++;
+    }
+    else if (j===2) {
+        introArray[j].style.visibility = "hidden";
+        clearInterval(introInterval);
+        //starts the game and controls the interval where words appear
+        input.style.visibility = "visible";
+        input.focus();
+        gameCheck();
+        updateScore();
+        wordInterval = setInterval(gameCheck, duration*1000);
+    }
+}
 
 
 // <animation>words move out of brain's mouth, moves from right to left, towards pinky
@@ -46,3 +192,27 @@ console.log(numBox);
 //     otherwise word will be shifted after 5s into an uncompleted array, if count reaches a certain number(5/10) game ends and will show your typing speed(per min)
 
 // (increase difficulty) after every 5 words, either shift to a more lengthy array of words
+
+// const numBox = 800*600/400;
+// console.log(numBox);
+
+// let gameframe = document.querySelector(".gameframe");
+// for (i=0; i<numBox; i++) {
+//     var grid = document.createElement("div");
+//     grid.className = "box";
+//     grid.id = i;
+//     grid.style.backgroundColor = "none";
+//     grid.style.border = "solid rgba(0,0,0,0) 1px";
+//     grid.style.width = "18px";
+//     grid.style.height = "18px";
+//     grid.style.display = "flex";
+//     grid.style.alignItems = "center";
+//     grid.style.justifyContent = "center";
+//     grid.innerHTML = i;
+//     grid.style.color = "rgba(255,255,255,0)";
+//     grid.style.fontSize = "8px";
+//     gameframe.appendChild(grid);
+// }
+
+
+// https://github.com/bevacqua/correcthorse/blob/master/wordlist.json

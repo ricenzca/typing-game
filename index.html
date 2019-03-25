@@ -8,11 +8,23 @@
     <h1>Typing game</h1>
     <div class="container">
         <div class="gameframe">
+            <div class="score"></div>
+ -->            <div class="instructions">Help Pinky understand what Brain is saying by typing the words in the order they appear!</div>
+            <div class="pinkyLiner">Pinky: Gee, Brain, what do you want to do tonight?</div>
+            <div class="brainLiner">Brain: The same thing we do every night, Pinky -<br> try to take over the world!</div>
+            <div class="inputSection">
+                <input type="text" placeholder="Type here and hit enter!" id="input" autofocus="autofocus" />
+                <button id="submit">Submit</button>
+                <div class="counter"></div>
+            </div>
         </div>
-        <img src="images/pinky-brain/pinky-still.png"/ id="pinky">
-        <img src="images/pinky-brain/brain.png" id="brain">
+        <div class="images">
+            <img src="images/pinky-brain/pinky-still.png" id="pinky" alt="image of pinky"/>
+            <img src="images/pinky-brain/brain.png" id="brain" alt="image of brain"/>
+        </div>
+        <div class="word-on-display"></div>
     </div>
-            <img src=""/>
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
