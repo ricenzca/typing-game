@@ -54,12 +54,33 @@ h1 {
 	visibility: hidden;
 }
 
+#start-game {
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+	position: relative;
+	top: 10px;
+	right: 190px;
+	max-width: 600px;
+	background: rgba(255,160,122,1);
+	padding: 8px;
+	border-radius: 20px;
+	border: solid red 5px;
+	visibility: hidden;
+	z-index: 1;
+}
+
+#start-game:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
 .pinkyLiner {
 	color: black;
 	font-size: 30px;
 	line-height: 40px;
 	position: relative;
-	top: 85px;
+	top: 95px;
 	max-width: 370px;
 	background: rgba(255,255,255, .8);
 	padding: 10px;
@@ -72,13 +93,19 @@ h1 {
 	font-size: 30px;
 	line-height: 40px;
 	position: relative;
-	top: 145px;
+	top: 105px;
 	max-width: 380px;
 	background: rgba(255,255,255, .8);
 	padding: 10px;
 	border-radius: 20px;
 	float: right;
 	visibility: hidden;
+	z-index: 1;
+}
+
+.mouseover:hover {
+	cursor: pointer;
+	border: solid white 3px;
 }
 
 .hidden {
@@ -135,7 +162,7 @@ h1 {
 #brain {
 	height: 400px;
 	position: relative;
-	bottom: 340px;
+	bottom: 360px;
 	left: 0;
 	float: right;
 }
@@ -149,6 +176,15 @@ h1 {
 		opacity: 0.5;
 	}
 }
+
+/*.word-if-wrong {
+	color: white;
+	opacity: 0.5;
+	position: relative;
+	bottom: 320px;
+	right: 120px;
+	font-size: 50px;
+}*/
 
 .word-on-display {
 	color: white;
