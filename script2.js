@@ -1,14 +1,8 @@
 window.onload = function () {
-}
 
 let wordLibrary = data;
-//Sort the words from short to long
-// wordLibrary.sort(function(a, b){
-//   return a.length - b.length;
-// });
-// console.log (wordLibrary);
 
-//Groups the words according to the number of letters into corresponsing arrays
+//Groups the words according to the number of letters into corresponding arrays
 function generateWordArray () {
     fourToFive = wordLibrary.filter(value => value.length>3 && value.length<6);
     sixToSeven = wordLibrary.filter(value => value.length>5 && value.length<8);
@@ -21,7 +15,7 @@ generateWordArray();
 let randomWord = "";
 function generateRandomWord(array) {
     lengthArray = array.length;
-    var randomNumber = Math.floor(Math.random()*lengthArray);
+    let randomNumber = Math.floor(Math.random()*lengthArray);
     randomWord = array[randomNumber];
     array.splice(randomNumber,1);
 }
@@ -68,7 +62,6 @@ function startGame () {
     startButton.style.visibility = "hidden";
     input.style.visibility = "visible";
     input.focus();
-    console.log("number of words displayed: "+numberOfWordsDisplayed);
     if (numberOfWordsDisplayed===0) {tickerController();}
     gameInterval = setInterval(tickerController, 1000);
 }
@@ -90,7 +83,7 @@ function restartGame () {
 
 
 //Main function which moderates the game
-let duration = 1;
+let duration = 4;
 let ticker = 0;
 let inputCorrect = "no";
 let missedArray = [];
@@ -116,25 +109,15 @@ function tickerController () {
             console.log(missedArray);
             updateScore();
             //Checks if game has ended
-            if (missedArray.length===5) {
-                clearInterval(gameInterval);
-                word.remove();
-                brainLiner.addEventListener('mouseover',function () {
-                    brainLiner.classList.add("mouseover");
-                });
-                input.style.visibility = "hidden";
-                counter.style.visibility = "hidden";
-                brainLiner.innerHTML = "-GAME OVER-<br>Click here to play again";
-                brainLiner.style.visibility = "visible";
-                brainLiner.addEventListener('click',restartGame)
+            if (checkGameEnd()==true) {
                 return;
+            } else {
+                increaseWordLength();
+                displayWord();
+                ticker = duration;
+                updateTicker();
             }
-            increaseWordLength();
-            displayWord();
-            ticker = duration;
-            updateTicker();
-        }
-        else if (inputCorrect==="yes") {
+        } else if (inputCorrect==="yes") {
             // change ending animation of word and remove word from display after 1s
             word.remove();
             //generate new word and display
@@ -145,8 +128,7 @@ function tickerController () {
             updateTicker();
             inputCorrect = "no";
         }
-    }
-    else {
+    } else {
         updateTicker();
     }
 }
@@ -167,11 +149,10 @@ function displayWord () {
     wordArray.push(randomWord);
     word = document.createElement("div");
     numberOfWordsDisplayed++;
-    console.log(numberOfWordsDisplayed);
     word.id = numberOfWordsDisplayed;
     word.innerHTML = wordArray[0];
     wordOnDisplay.appendChild(word);
-    word.classList.add("animate");
+    wordOnDisplay.classList.add("animate");
 }
 
 
@@ -190,7 +171,15 @@ function checkInput() {
         updateScore();
     }
 }
-document.querySelector('#submit').addEventListener('click', checkInput);
+
+
+//Allows player to hit enter to submit in text box
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        checkInput();
+    }
+});
 
 
 //Clears placeholder of input when in focus
@@ -198,41 +187,36 @@ input.addEventListener("focus", function () {input.placeholder = "";});
 input.addEventListener("blur", function () {input.placeholder = "Type here and hit enter!";});
 
 
-//Allows player to hit enter to submit in text box
-input.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("submit").click();
-    }
-});
-
-
 //Displays the current score
 function updateScore () {
     score = document.querySelector(".score")
-    score.style.padding = "10px";
+    score.style.padding = "15px";
     score.innerHTML= "Your score: "+correctArray.length+"<br>Words missed: "+missedArray.length+"/5";
 }
 
 
-// Start intro
-// Ends intro
-
-// Input box appears, scoreboard appears, timer appears and start game, word appears and animation starts
-
-// if user input is correct, update score, clear input box but animation continues till timer is 0
-
-// if incorrect, timer is 0 and input box is cleared, update score, word bounces off and generate new word
-
 // //Checks when game is over
-// function checkGameEnd () {
-//     if (missedArray.length===5) {
-//         clearInterval(gameInterval);
-//         word.remove();
-//         input.remove();
-//         counter.remove();
-//         brainLiner.innerHTML = "-GAME OVER-<br>Refresh to play again"
-//         brainLiner.style.visibility = "visible";
-//         return;
-//         }
-// }
+function checkGameEnd () {
+    if (missedArray.length===5) {
+        clearInterval(gameInterval);
+        word.remove();
+        brainLiner.style.zIndex = "1";
+        brainLiner.addEventListener('mouseover',function () {
+        brainLiner.classList.add("mouseover");
+            });
+        input.style.visibility = "hidden";
+        counter.style.visibility = "hidden";
+        brainLiner.innerHTML = "-GAME OVER-<br>Click here to play again";
+        brainLiner.style.visibility = "visible";
+        brainLiner.addEventListener('click',restartGame)
+        return true;
+    }
+}
+
+//Sort the words from short to long
+// wordLibrary.sort(function(a, b){
+//   return a.length - b.length;
+// });
+// console.log (wordLibrary);
+
+}

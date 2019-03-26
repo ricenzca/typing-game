@@ -18,6 +18,7 @@ h1 {
 	max-height: 600px;
 	background: #F7E5DE;
 	text-align: center;
+	padding: 15px;
 }
 
 .gameframe {
@@ -62,7 +63,7 @@ h1 {
 	top: 10px;
 	right: 190px;
 	max-width: 600px;
-	background: rgba(255,160,122,1);
+	background: rgba(255,160,122,0.9);
 	padding: 8px;
 	border-radius: 20px;
 	border: solid red 5px;
@@ -100,12 +101,12 @@ h1 {
 	border-radius: 20px;
 	float: right;
 	visibility: hidden;
-	z-index: 1;
+/*	z-index: 1;*/
 }
 
 .mouseover:hover {
 	cursor: pointer;
-	border: solid white 3px;
+	border: solid rgba(255,160,122,1) 3px;
 }
 
 .hidden {
@@ -115,7 +116,7 @@ h1 {
 .inputSection {
 	position: relative;
 	bottom: 100px;
-	left: 240px;
+	left: 150px;
 	float: right;
 }
 
@@ -131,24 +132,25 @@ h1 {
 	height: 40px;
 }
 
-#submit {
+/*#submit {
 	font-size: 20px;
 	padding: 0 10px;
 	background: rgba(255,255,255, .8);
 	border: none;
 	border-radius: 5px;
 	visibility: hidden;
-}
+}*/
 
 .counter {
 	color: black;
 	font-size: 25px;
 	position: relative;
-	left: 250px;
+	left: 280px;
 	bottom: 140px;
 	background: rgba(255,255,255, .8);
 	border-radius: 5px;
-	width: 130px;
+	width: 180px;
+	line-height: 60px;
 }
 
 #pinky {
@@ -167,23 +169,14 @@ h1 {
 	float: right;
 }
 
-@-webkit-keyframes wordmove {
-	50% {
-		opacity: 1;
-	}
-	100% {
-		-webkit-transform: translate(-380px, -75px) scale(2);
-		opacity: 0.5;
-	}
+/*.word-if-wrong {
+	-webkit-animation: rotate 1.5s ease-in-out infinite;
 }
 
-/*.word-if-wrong {
-	color: white;
-	opacity: 0.5;
-	position: relative;
-	bottom: 320px;
-	right: 120px;
-	font-size: 50px;
+@-webkit-keyframes rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
 }*/
 
 .word-on-display {
@@ -195,11 +188,16 @@ h1 {
 	font-size: 25px;
 }
 
+@-webkit-keyframes wordmove {
+	50% {
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: translate(-380px, -75px) scale(2);
+		opacity: 0.5;
+	}
+}
+
 .animate {
 	-webkit-animation: wordmove 4s cubic-bezier(0.07,-0.31, 0.58, 1) infinite;
 }
-
-/*.trigger:hover {
-	transform: translate(-330px, -75px) scale(2);
-	/*-webkit-transform: translate(-410px,-75px) scale(2);*/
-}*/
