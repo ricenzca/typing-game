@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typing Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Concert+One|Open+Sans:400,700|Patua+One" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -10,7 +13,7 @@
         <div class="gameframe">
             <div class="score"></div>
             <div class="instructions">Help Pinky understand what Brain is saying by typing the words in the order they appear!</div>
-            <button id="start-game">Ready? Click here to begin!</button>
+            <button id="start-game">Ready? Hit ENTER or click here to begin!</button>
             <div class="pinkyLiner">Pinky: Gee, Brain, what do you want to do tonight?</div>
             <div class="brainLiner">Brain: The same thing we do every night, Pinky -<br> try to take over the world!</div>
             <div class="inputSection">
@@ -22,8 +25,12 @@
             <img src="images/pinky-brain/pinky-still.png" id="pinky" alt="image of pinky"/>
             <img src="images/pinky-brain/brain.png" id="brain" alt="image of brain"/>
         </div>
-        <!-- <div class="word-if-wrong">hello</div> -->
         <div class="word-on-display"></div>
+        <!-- Added to allow autoplay of background music -->
+        <iframe src="sounds/250-milliseconds-of-silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+        <audio id="player" autoplay loop>
+            <source src="sounds/themeMusic.mp3" type="audio/mp3">
+        </audio>
     </div>
     <script src="data.js"></script>
     <script src="script2.js"></script>
