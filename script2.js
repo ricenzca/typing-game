@@ -53,7 +53,7 @@ function intro () {
         clearInterval(introInterval);
     }
 }
-introInterval = setInterval(intro, 1000);
+introInterval = setInterval(intro, 500);
 
 
 //Starts the game
@@ -101,12 +101,15 @@ function tickerController () {
     else if (numberOfWordsDisplayed!==0 && ticker===0) {
         if (inputCorrect==="no") {
             // change ending animation of word and remove word from display after 1s
-            word.remove();
+            firstWord = document.querySelector(".word");
+            console.log(firstWord);
+            firstWord.style.webkitAnimationName = "bounceoff";
+            setTimeout(removeWord, 1000);
             //Clears input box;
             input.value = "";
             //push word into missed array and update scoreboard
             missedArray.push(wordArray.shift());
-            console.log(missedArray);
+            console.log("missed array: "+missedArray);
             updateScore();
             //Checks if game has ended
             if (checkGameEnd()==true) {
@@ -119,7 +122,8 @@ function tickerController () {
             }
         } else if (inputCorrect==="yes") {
             // change ending animation of word and remove word from display after 1s
-            word.remove();
+            firstWord = document.querySelector(".word");
+            setTimeout(removeWord, 1000);
             //generate new word and display
             increaseWordLength();
             displayWord();
@@ -131,6 +135,12 @@ function tickerController () {
     } else {
         updateTicker();
     }
+}
+
+
+//removes word from display
+function removeWord () {
+    firstWord.remove();
 }
 
 
@@ -151,8 +161,8 @@ function displayWord () {
     numberOfWordsDisplayed++;
     word.id = numberOfWordsDisplayed;
     word.innerHTML = wordArray[0];
+    word.classList = "word";
     wordOnDisplay.appendChild(word);
-    wordOnDisplay.classList.add("animate");
 }
 
 
@@ -166,7 +176,7 @@ function checkInput() {
         inputCorrect = "yes";
         input.value = "";
         correctArray.push(entry);
-        console.log(correctArray);
+        console.log("correct array: "+correctArray);
         wordArray.shift();
         updateScore();
     }
@@ -199,7 +209,7 @@ function updateScore () {
 function checkGameEnd () {
     if (missedArray.length===5) {
         clearInterval(gameInterval);
-        word.remove();
+        setTimeout(removeWord, 1000);
         brainLiner.style.zIndex = "1";
         brainLiner.addEventListener('mouseover',function () {
         brainLiner.classList.add("mouseover");

@@ -82,6 +82,7 @@ h1 {
 	line-height: 40px;
 	position: relative;
 	top: 95px;
+	left: 10px;
 	max-width: 370px;
 	background: rgba(255,255,255, .8);
 	padding: 10px;
@@ -95,13 +96,13 @@ h1 {
 	line-height: 40px;
 	position: relative;
 	top: 105px;
+	right: 10px;
 	max-width: 380px;
 	background: rgba(255,255,255, .8);
 	padding: 10px;
 	border-radius: 20px;
 	float: right;
 	visibility: hidden;
-/*	z-index: 1;*/
 }
 
 .mouseover:hover {
@@ -132,15 +133,6 @@ h1 {
 	height: 40px;
 }
 
-/*#submit {
-	font-size: 20px;
-	padding: 0 10px;
-	background: rgba(255,255,255, .8);
-	border: none;
-	border-radius: 5px;
-	visibility: hidden;
-}*/
-
 .counter {
 	color: black;
 	font-size: 25px;
@@ -169,35 +161,46 @@ h1 {
 	float: right;
 }
 
-/*.word-if-wrong {
-	-webkit-animation: rotate 1.5s ease-in-out infinite;
-}
-
-@-webkit-keyframes rotate {
-	100% {
-		-webkit-transform: rotate(360deg);
-	}
-}*/
-
 .word-on-display {
-	color: white;
-	opacity: 0.5;
 	position: relative;
-	bottom: 250px;
-	left: 40%;
-	font-size: 25px;
+	left: 270px;
+	bottom: 200px;
 }
 
-@-webkit-keyframes wordmove {
-	50% {
+.word {
+	color: white;
+	opacity: 0.25;
+	font-size: 25px;
+	display: inline-block;
+	padding-left: 10px;
+	position: absolute;
+	-webkit-animation: fly 5s cubic-bezier(0, 0, 1, 1) 1 forwards;
+}
+
+@-webkit-keyframes fly {
+	0% {
+		-webkit-transform: rotate(30deg);
+	}
+	30% {
+		opacity: 1;
+	}
+	90% {
+		-webkit-transform: translate(-440px, -110px) scale(2);
 		opacity: 1;
 	}
 	100% {
-		-webkit-transform: translate(-380px, -75px) scale(2);
-		opacity: 0.5;
+		-webkit-transform: rotate(0deg) translate(-450px, -110px) scale(1.8);
+		opacity: 0.25;
 	}
 }
 
-.animate {
-	-webkit-animation: wordmove 4s cubic-bezier(0.07,-0.31, 0.58, 1) infinite;
+@-webkit-keyframes bounceoff {
+	0% {
+		-webkit-transform: translate(-440px, -110px) scale(2);
+		opacity: 1;
+	}
+	20% {
+		-webkit-transform: rotate(40deg) translate(-430px, -110px) scale(2);
+		opacity: 0.25;
+	}
 }
