@@ -10,10 +10,22 @@ body {
 	font-family: 'Concert One', cursive, sans-serif, serif;*/
 }
 
+h3 {
+	text-align: center;
+	padding: 5px 20px;
+	color: white;
+	font-family: 'Patua One', cursive, sans-serif, serif;
+}
+
 h1 {
 	text-align: center;
-	padding: 20px;
+	padding: 5px 20px;
+	color: white;
+	font-family: 'Patua One', cursive, sans-serif, serif;
+	text-transform: uppercase;
+	letter-spacing: 3px;
 }
+
 .container {
 	width: 800px;
 	height: 600px;
@@ -215,4 +227,16 @@ h1 {
 
 #audio, #player {
 	visibility: hidden;
+}
+
+a {
+	display: inline-block;
+	color: white;
+	font-family: 'Patua One', cursive, sans-serif, serif;
+	position: relative;
+	bottom: 280px;
+	right: 70px;
+	letter-spacing: 1px;
+	color: white;
+	text-decoration: none;
 }
