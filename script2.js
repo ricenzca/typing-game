@@ -49,8 +49,7 @@ function increaseWordLength() {
         generateRandomWord(eightToTen);
         duration = 2;
         animationDuration = 3;
-    }
-    else if (correctArray.length >= 24) {
+    } else if (correctArray.length >= 24) {
         generateRandomWord(elevenAndAbove);
         duration = 2;
         animationDuration = 3;
@@ -65,22 +64,23 @@ const startButton = document.querySelector("#start-game");
 introArray = [pinkyLiner, brainLiner,instructions, startButton];
 let i=0;
 function intro () {
-    if (i!==3) {
+    if (i<=2) {
         introArray[i].style.visibility = "hidden";
         introArray[i+1].style.visibility = "visible";
+        if (i===2) {
+            clearInterval(introInterval);
+            console.log("intro interval cleared!")
+            document.body.addEventListener("keyup", hitEnterStartGame);
+            startButton.addEventListener("click", startGame);
+        }
         i++;
-    }
-    else if (i===3) {
-        clearInterval(introInterval);
-        document.body.addEventListener("keyup", hitEnterStartGame);
-        startButton.addEventListener("click", startGame);
     }
 }
 introInterval = setInterval(intro, 3000);
+console.log("intro interval set!")
 
 
 //Starts the game
-const theme = new Audio("sounds/theme.mp3");
 startButton.addEventListener("click", startGame);
 function startGame () {
     startButton.style.visibility = "hidden";
@@ -95,7 +95,7 @@ function startGame () {
 
 //To restart the game
 function restartGame () {
-    document.body.removeEventListener("keyup", hitEnterRestart);
+    document.body.removeEventListener("keyup", hitShiftRestart);
     brainLiner.removeEventListener("click", restartGame);
     changeBackground();
     brainLiner.style.visibility = "hidden";
@@ -250,11 +250,10 @@ function hitEnterStartGame(event) {
         }
 
 //Allows player to hit shift to restart game
-function hitEnterRestart(event) {
+function hitShiftRestart(event) {
             event.preventDefault();
             if (event.keyCode === 16) {
                 restartGame();
-            document.body.removeEventListener("keyup", hitEnterRestart);
             }
         }
 
@@ -286,7 +285,7 @@ function checkGameEnd () {
         counter.style.visibility = "hidden";
         brainLiner.innerHTML = "-GAME OVER-<br>Hit shift or click here to play again";
         brainLiner.style.visibility = "visible";
-        document.body.addEventListener("keyup", hitEnterRestart);
+        document.body.addEventListener("keyup", hitShiftRestart);
         brainLiner.addEventListener("click", restartGame);
         gameOverSound.play();
         return true;
