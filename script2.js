@@ -37,15 +37,15 @@ function increaseWordLength() {
         generateRandomWord(elevenAndAbove);
         duration = 3;
         animationDuration = 4;
-    } else if (correctArray.length < 18) {
+    } else if (correctArray.length >=15 && correctArray.length < 18) {
         generateRandomWord(fourToFive);
         duration = 2;
         animationDuration = 3;
-    } else if (correctArray.length < 21) {
+    } else if (correctArray.length >=18 && correctArray.length < 21) {
         generateRandomWord(sixToSeven);
         duration = 2;
         animationDuration = 3;
-    } else if (correctArray.length < 24) {
+    } else if (correctArray.length >=21 && correctArray.length < 24) {
         generateRandomWord(eightToTen);
         duration = 2;
         animationDuration = 3;
