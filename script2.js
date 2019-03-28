@@ -76,7 +76,7 @@ function intro () {
         startButton.addEventListener("click", startGame);
     }
 }
-introInterval = setInterval(intro, 500);
+introInterval = setInterval(intro, 3000);
 
 
 //Starts the game
